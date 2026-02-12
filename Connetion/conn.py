@@ -30,6 +30,8 @@ def execute_query(connection, query):
         print(f"The error '{e}' occurred")
         
  # Function to execute a query that returns results (e.g., SELECT)       
+
+# Function to execute a query that returns results (e.g., SELECT)
 def execute_read_query(connection, query):
     cursor = connection.cursor()
     result = None
@@ -55,5 +57,4 @@ def connection():
     db_password = os.getenv('DB_PASSWORD')
     db_host = os.getenv('DB_HOST')
     db_port = os.getenv('DB_PORT')
-    print(db_name, db_user, db_password, db_host, db_port)
     return create_connection(db_name, db_user, db_password, db_host, db_port)
