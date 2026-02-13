@@ -1,13 +1,15 @@
-import DataTratament.tratament as dt
-import DataTratament.saveFile as sf
-import DataTratament.ingest as ingest
+import os
+from src.etl.config import settings
+import src.etl.transform.cleaning as dt
+import src.etl.load.load as sf
+import src.etl.extract.extract as extract
 import logging as log
 
 log.basicConfig(level=log.INFO)
 
-def main():
-    df_customers = ingest.create_dataframe("customers")
-    df_orders = ingest.create_dataframe("orders")  
+def run_pipeline():
+    df_customers = extract.create_dataframe("customers")
+    df_orders = extract.create_dataframe("orders")  
 
     df_customers.columns = [
         'customer_id','name', 'email', 'phone',
@@ -38,14 +40,18 @@ def main():
     df_orders = dt.standardize_payment_methods(df_orders)
 
     # Output
-    sf.save_to_csv(df_customers, "Data/DataOutput/customers.csv")
-    sf.save_to_csv(df_orders, "Data/DataOutput/orders.csv")
+    
+    output_path = settings.OUTPUT_PATH
+    file_path_customers = os.path.join(output_path, "customers.csv")
+    file_path_orders = os.path.join(output_path, "orders.csv")
+    
+    sf.save_to_csv(df_customers, file_path_customers)
+    sf.save_to_csv(df_orders, file_path_orders)
 
     log.info("ETL pipeline finished successfully.")
 
 
-if __name__ == "__main__":
-    main()
+
 
 
 

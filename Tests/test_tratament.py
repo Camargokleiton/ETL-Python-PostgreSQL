@@ -1,10 +1,10 @@
 
-from DataTratament.tratament import normalize_phone
-from DataTratament.tratament import fill_missing_emails, fill_missing_phones
-from DataTratament.tratament import fill_missing_order_dates, fill_invalid_birth_dates
-from DataTratament.tratament import fill_missing_status, convert_amount_to_float
-from DataTratament.tratament import fill_negative_amounts, standardize_birth_dates
-from DataTratament.tratament import standardize_payment_methods, remove_duplicates
+from src.etl.transform.cleaning import normalize_phone
+from src.etl.transform.cleaning import fill_missing_emails, fill_missing_phones
+from src.etl.transform.cleaning import fill_missing_order_dates, fill_invalid_birth_dates
+from src.etl.transform.cleaning import fill_missing_status, convert_amount_to_float
+from src.etl.transform.cleaning import fill_negative_amounts, standardize_birth_dates
+from src.etl.transform.cleaning import standardize_payment_methods, remove_duplicates
 
 import pandas as pd
 
