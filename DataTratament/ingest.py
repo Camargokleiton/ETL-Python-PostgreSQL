@@ -2,6 +2,7 @@
 from Connetion import conn
 import pandas as pd
 
+# Function to create DataFrame from SQL query
 def create_dataframe(table_name):
     connection = conn.connection()
     conn.execute_query(connection, "SET search_path TO training;")
