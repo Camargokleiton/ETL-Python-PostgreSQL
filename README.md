@@ -33,30 +33,6 @@ graph TD
     style Root fill:#f9f,stroke:#333,stroke-width:2px
     style Pipe fill:#bbf,stroke:#333,stroke-width:2px
 
-sequenceDiagram
-    participant DB as PostgreSQL
-    participant CONN as Connection/conn.py
-    participant EXT as etl/extract.py
-    participant PIPE as pipeline.py
-    participant TRANS as etl/transform/cleaning.py
-    participant LOAD as etl/load/load.py
-    participant OUT as CSV Output
-
-    Note over PIPE: Start Pipeline
-    PIPE->>EXT: Request Data (Customers/Orders)
-    EXT->>CONN: Open Connection
-    CONN->>DB: Execute SELECT Query
-    DB-->>CONN: Raw Data
-    CONN-->>EXT: DataFrame
-    EXT-->>PIPE: Raw DataFrames
-    
-    PIPE->>TRANS: Apply Cleaning & Rules
-    Note right of TRANS: Deduplication, Regex,<br/>Normalization
-    TRANS-->>PIPE: Clean DataFrames
-    
-    PIPE->>LOAD: Save Processed Data
-    LOAD->>OUT: Generate customers.csv / orders.csv
-    Note over PIPE: Pipeline Finished
 ```
 
  
