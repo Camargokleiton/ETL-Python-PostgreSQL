@@ -30,7 +30,7 @@ graph TD
     
     Tests --> Tst[test_tratament.py]
 
-    style Root fill:#f9f,stroke:#333,stroke-width:2px
+    style Root fill:#f6f,stroke:#333,stroke-width:2px
     style Pipe fill:#bbf,stroke:#333,stroke-width:2px
 
 ```
