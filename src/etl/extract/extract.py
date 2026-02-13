@@ -1,5 +1,5 @@
 
-from Connetion import conn
+from connection import conn
 import pandas as pd
 
 # Function to create DataFrame from SQL query

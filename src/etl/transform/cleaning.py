@@ -28,6 +28,7 @@ def normalize_phone(phone: Optional[str]) -> Optional[str]:
     return None
 
 
+
 def fill_missing_emails(
     df: pd.DataFrame,
     col_name: str = "email",
@@ -43,7 +44,11 @@ def fill_missing_emails(
     df.loc[mask, col_name] = (
         df.loc[mask, name_col]
         .str.lower()
-        .str.replace(" ", "")
+        .str.replace(r"\s+", "", regex=True)
+        .str.normalize("NFKD")
+        .str.encode("ascii", errors="ignore")
+        .str.decode("utf-8")
+
         + domain
     )
     
@@ -86,7 +91,13 @@ def standardize_payment_methods(
     Invalid values become 'other'.
     """
     valid_methods = {"credit_card", "debit_card", "paypal", "bank_transfer", "cash"}
-    df[col_name] = df[col_name].str.lower().str.replace(" ", "_")
+    df[col_name] = (
+    df[col_name]
+    .fillna("other")
+    .astype(str)
+    .str.lower()
+    .str.replace(" ", "_")
+)
     mask = ~df[col_name].isin(valid_methods)
     df.loc[mask, col_name] = "other"
     return df   

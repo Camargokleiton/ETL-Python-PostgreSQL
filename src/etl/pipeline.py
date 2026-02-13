@@ -1,8 +1,8 @@
+from logging import config
 import os
-from src.etl.config import settings
-import src.etl.transform.cleaning as dt
-import src.etl.load.load as sf
-import src.etl.extract.extract as extract
+import transform.cleaning as dt
+import load.load as sf
+import extract.extract as extract
 import logging as log
 
 log.basicConfig(level=log.INFO)
@@ -41,7 +41,7 @@ def run_pipeline():
 
     # Output
     
-    output_path = settings.OUTPUT_PATH
+    output_path = os.getenv("OUTPUT_PATH", "data/output")
     file_path_customers = os.path.join(output_path, "customers.csv")
     file_path_orders = os.path.join(output_path, "orders.csv")
     
@@ -51,7 +51,8 @@ def run_pipeline():
     log.info("ETL pipeline finished successfully.")
 
 
-
+if __name__ == "__main__":
+    run_pipeline()
 
 
 
