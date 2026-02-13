@@ -7,34 +7,45 @@ Technical Documentation: ETL Pipeline (Python & PostgreSQL)
 2. Project Architect
 
 ```mermaid
-graph TD
-    Root[ETL-PYTHON-POSTGRESQL] --> Connection[Connection/]
-    Root --> Src[src/]
-    Root --> Tests[Tests/]
-    Root --> Env[.env]
-    Root --> Req[requirements.txt]
+flowchart TB
+    A[ETL-PYTHON-POSTGRESQL] --> B[data/output]
+    B --> B1[customers.csv]
+    B --> B2[orders.csv]
 
-    Connection --> ConnPy[conn.py]
+    A --> C[src]
+    C --> D[etl]
 
-    Src --> ETL[etl/]
-    ETL --> Config[config/]
-    ETL --> Extract[extract/]
-    ETL --> Transform[transform/]
-    ETL --> Load[load/]
-    ETL --> Pipe[pipeline.py]
+    D --> E[connection]
+    E --> E1[conn.py]
 
-    Config --> Sett[settings.py]
-    Extract --> ExtPy[extract.py]
-    Transform --> Clean[cleaning.py]
-    Load --> LoadPy[load.py]
-    
-    Tests --> Tst[test_tratament.py]
+    D --> F[extract]
+    F --> F1[extract.py]
 
-    style Root fill:#f6f,stroke:#333,stroke-width:2px
-    style Pipe fill:#bbf,stroke:#333,stroke-width:2px
+    D --> G[transform]
+    G --> G1[cleaning.py]
+
+    D --> H[load]
+    H --> H1[load.py]
+
+    D --> I[pipeline.py]
+    D --> J[__init__.py]
+
+    A --> K[Tests]
+    A --> L[venv]
+    A --> M[.env]
+    A --> N[.gitignore]
+    A --> O[Makefile]
+    A --> P[requirements.txt]
 
 ```
+```mermaid
+flowchart LR
+    Extract[extract.py] --> Transform[cleaning.py]
+    Transform --> Load[load.py]
+    Load --> Postgres[(PostgreSQL)]
+    Postgres --> Output[CSV Files]
 
+```
  
 4. Data Quality & Transformation Rules
 
